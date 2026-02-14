@@ -1,24 +1,26 @@
-import { MIN_BUDGET_BY_DESTINATION } from "./budgetRules";
+import { destinationCostIndex } from "./destinationCostIndex";
+import { detectRegion } from "./detectRegion";
 
-export function validateBudget(destination, budget) {
-  if (!destination || !budget) {
-    return { valid: false };
-  }
+export function validateBudget(destination, totalBudget, days = 3, people = 1) {
+  const region = detectRegion(destination);
+  const costIndex = destinationCostIndex[region] || 2;
 
-  const key = destination.toLowerCase().trim();
-  const minBudget = MIN_BUDGET_BY_DESTINATION[key];
+  // Base daily cost per person (₹)
+  const BASE_DAILY_COST = 3000;
 
-  // Agar destination rule me nahi hai → AI ko allow karo
-  if (!minBudget) {
-    return { valid: true };
-  }
+  const minRequired =
+    BASE_DAILY_COST * costIndex * days * people;
 
-  if (budget < minBudget) {
+  if (totalBudget < minRequired) {
     return {
       valid: false,
-      minBudget,
+      minBudget: Math.ceil(minRequired),
+      region,
     };
   }
 
-  return { valid: true };
+  return {
+    valid: true,
+    region,
+  };
 }
