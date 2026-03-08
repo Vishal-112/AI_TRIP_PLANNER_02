@@ -8,7 +8,7 @@ import {
   FacebookAuthProvider
 } from "firebase/auth";
 import { auth } from "../firebase/firebase";
-import "./Login.css";
+import "./login.css";
 
 function Login() {
   const navigate = useNavigate();
