@@ -163,7 +163,7 @@ Rules:
         interests,
         specialRequests,
         userId: user.uid,
-        region: budgetCheck.region,
+        region: budgetCheck.region || "",
         perDayBudget,
         perPersonBudget,
         itinerary: text,

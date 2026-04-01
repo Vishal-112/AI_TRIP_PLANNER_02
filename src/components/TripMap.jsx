@@ -85,12 +85,12 @@ function TripMap({ from, to, place }) {
       .addTo(map)
       .bindPopup(`<b>Starting Point</b><br>${place || "Origin"}`);
 
-    const endMarker = L.marker([toLat, toLon], { icon: endIcon })
+    L.marker([toLat, toLon], { icon: endIcon })
       .addTo(map)
       .bindPopup(`<b>Destination</b><br>${place || "Destination"}`);
 
     // Draw route line
-    const routeLine = L.polyline(
+    L.polyline(
       [
         [fromLat, fromLon],
         [toLat, toLon],

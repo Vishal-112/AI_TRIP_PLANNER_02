@@ -11,6 +11,11 @@ export async function fetchImage(query) {
       }
     );
 
+    if (!res.ok) {
+      console.error("Unsplash API error:", res.status);
+      return null;
+    }
+
     const data = await res.json();
     return data?.results?.[0]?.urls?.regular || null;
   } catch (err) {

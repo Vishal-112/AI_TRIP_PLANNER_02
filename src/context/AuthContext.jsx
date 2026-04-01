@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import {
   onAuthStateChanged,
   signOut,
@@ -9,12 +9,18 @@ import { auth } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
+export { AuthContext };
+
+// ✅ ADD THIS (main fix)
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 🔐 IMPORTANT: Session-based login
     setPersistence(auth, browserSessionPersistence)
       .then(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -41,5 +47,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

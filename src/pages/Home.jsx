@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext"; // Add this import
+import { useAuth } from "../context/useAuth"; // Add this import
 import "./Home.css";
 
 function Home() {
